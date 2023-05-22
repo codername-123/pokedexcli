@@ -28,7 +28,10 @@ func startRepl(cfg *config) {
 			fmt.Println("Unknown command check help")
 			continue
 		}
-		command.callback(cfg)
+		err := command.callback(cfg)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }
 
