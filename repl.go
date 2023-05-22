@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func startRepl() {
@@ -13,6 +14,16 @@ func startRepl() {
 		if ok := scanner.Scan(); !ok {
 			break
 		}
-		fmt.Println(scanner.Text())
+		cmd := clearInput(scanner.Text())
+		fmt.Println(cmd)
 	}
+}
+
+func clearInput(token string) string {
+	// splits the string on white space
+	words := strings.Fields(token)
+	if len(words) == 0 {
+		return ""
+	}
+	return words[0]
 }
