@@ -1,9 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"os"
+)
 
-// TODO: complete the implementation
 func commandExit() error {
-	fmt.Println("Ran the Exit command")
+	os.Exit(0)
 	return nil
 }
