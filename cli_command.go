@@ -15,7 +15,7 @@ func getCommand() map[string]cliCommand {
 		},
 		"exit": {
 			name:        "exit",
-			description: "Exit the Pokedex cli",
+			description: "Exit the Pokedex",
 			callback:    commandExit,
 		},
 	}

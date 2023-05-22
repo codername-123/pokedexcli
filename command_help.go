@@ -2,8 +2,16 @@ package main
 
 import "fmt"
 
-// TODO: complete the implementation
 func commandHelp() error {
-	fmt.Println("Ran the Help command")
+	fmt.Println()
+	fmt.Println("Welcome to the Pokedex!")
+	fmt.Println("Usage:")
+	fmt.Println()
+
+	for k, v := range getCommand() {
+		fmt.Printf("%s: %s\n", k, v.description)
+	}
+
+	fmt.Println()
 	return nil
 }
