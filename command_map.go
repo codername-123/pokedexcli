@@ -2,14 +2,36 @@ package main
 
 import "fmt"
 
-// TODO: complete the following function
 func commandMapF(cfg *config) error {
-	fmt.Println("Ran the command mapf")
+	if cfg.prev != nil && cfg.next == nil {
+		return fmt.Errorf("you are on the last page")
+	}
+	resp, err := cfg.pokeClient.LocationAreaRequest(cfg.next)
+	if err != nil {
+		return err
+	}
+	cfg.next = resp.Next
+	cfg.prev = resp.Previous
+
+	for _, result := range resp.Results {
+		fmt.Println(result.Name)
+	}
 	return nil
 }
 
-// TODO: complete the following function
 func commandMapB(cfg *config) error {
-	fmt.Println("Ran the command mapb")
+	if cfg.prev == nil {
+		return fmt.Errorf("you are on the first page")
+	}
+	resp, err := cfg.pokeClient.LocationAreaRequest(cfg.prev)
+	if err != nil {
+		return err
+	}
+	cfg.next = resp.Next
+	cfg.prev = resp.Previous
+
+	for _, result := range resp.Results {
+		fmt.Println(result.Name)
+	}
 	return nil
 }
