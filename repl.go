@@ -14,8 +14,13 @@ func startRepl() {
 		if ok := scanner.Scan(); !ok {
 			break
 		}
-		cmd := clearInput(scanner.Text())
-		fmt.Println(cmd)
+		word := clearInput(scanner.Text())
+		command, ok := getCommand()[word]
+		if !ok {
+			fmt.Println("Unknown command check help")
+			continue
+		}
+		command.callback()
 	}
 }
 
