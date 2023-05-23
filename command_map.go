@@ -6,7 +6,7 @@ func commandMapF(cfg *config) error {
 	if cfg.prev != nil && cfg.next == nil {
 		return fmt.Errorf("you are on the last page")
 	}
-	resp, err := cfg.pokeClient.LocationAreaRequest(cfg.next)
+	resp, err := cfg.pokeClient.ListLocations(cfg.next)
 	if err != nil {
 		return err
 	}
@@ -14,6 +14,7 @@ func commandMapF(cfg *config) error {
 	cfg.prev = resp.Previous
 
 	for _, result := range resp.Results {
+		fmt.Print(" - ")
 		fmt.Println(result.Name)
 	}
 	return nil
@@ -23,7 +24,7 @@ func commandMapB(cfg *config) error {
 	if cfg.prev == nil {
 		return fmt.Errorf("you are on the first page")
 	}
-	resp, err := cfg.pokeClient.LocationAreaRequest(cfg.prev)
+	resp, err := cfg.pokeClient.ListLocations(cfg.prev)
 	if err != nil {
 		return err
 	}
@@ -31,6 +32,7 @@ func commandMapB(cfg *config) error {
 	cfg.prev = resp.Previous
 
 	for _, result := range resp.Results {
+		fmt.Print(" - ")
 		fmt.Println(result.Name)
 	}
 	return nil
