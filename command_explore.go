@@ -1,9 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-// TODO: complete the implementation
 func commandExplore(cfg *config, args ...string) error {
-	fmt.Println(args)
+	if len(args) != 0 {
+		return errors.New("city name not specified check help")
+	}
+	pokemonReponse, err := cfg.pokeClient.ListPokemons(args[0])
+	if err != nil {
+		return err
+	}
+	for _, pokemon := range pokemonReponse.PokemonEncounters {
+		fmt.Print(" - ")
+		fmt.Println(pokemon.Pokemon.Name)
+	}
 	return nil
 }
