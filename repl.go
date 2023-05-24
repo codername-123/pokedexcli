@@ -22,24 +22,33 @@ func startRepl(cfg *config) {
 		if ok := scanner.Scan(); !ok {
 			break
 		}
-		word := clearInput(scanner.Text())
-		command, ok := getCommand()[word]
+		words := clearInput(scanner.Text())
+		if len(words) == 0 {
+			continue
+		}
+
+		var args []string
+		cmdName := words[0]
+		if len(words) > 1 {
+			args = words[1:]
+		}
+
+		command, ok := getCommand()[cmdName]
 		if !ok {
 			fmt.Println("Unknown command check help")
 			continue
 		}
-		err := command.callback(cfg)
+		err := command.callback(cfg, args...)
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
 }
 
-func clearInput(token string) string {
+func clearInput(token string) []string {
+	out := strings.ToLower(token)
+
 	// splits the string on white space
-	words := strings.Fields(token)
-	if len(words) == 0 {
-		return ""
-	}
-	return words[0]
+	words := strings.Fields(out)
+	return words
 }
