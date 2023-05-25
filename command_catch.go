@@ -10,6 +10,10 @@ func commandCatch(cfg *config, args ...string) error {
 	if len(args) != 1 {
 		return errors.New("command arguments are not provided correctly")
 	}
+	_, ok := cfg.caughtPokemon[args[0]]
+	if ok {
+		return fmt.Errorf("you have already caught %s", args[0])
+	}
 	pokemonDetails, err := cfg.pokeClient.PokemonDetails(args[0])
 	if err != nil {
 		return err
