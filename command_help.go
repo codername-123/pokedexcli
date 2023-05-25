@@ -8,8 +8,8 @@ func commandHelp(cfg *config, args ...string) error {
 	fmt.Println("Usage:")
 	fmt.Println()
 
-	for k, v := range getCommand() {
-		fmt.Printf("%s: %s\n", k, v.description)
+	for _, v := range getCommand() {
+		fmt.Printf("%s:\n	- %s\n\n", v.name, v.description)
 	}
 
 	fmt.Println()
