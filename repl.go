@@ -10,9 +10,10 @@ import (
 )
 
 type config struct {
-	pokeClient pokeapi.Client
-	next       *string
-	prev       *string
+	pokeClient    pokeapi.Client
+	next          *string
+	prev          *string
+	caughtPokemon map[string]pokeapi.ResponsePokemon
 }
 
 func startRepl(cfg *config) {
