@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 func commandCatch(cfg *config, args ...string) error {
@@ -25,7 +26,10 @@ func commandCatch(cfg *config, args ...string) error {
 	//? probability of getting a number lower than 40 will decrease
 	var threshold int = 40
 
-	randVal := rand.Intn(pokemonDetails.BaseExperience)
+	src := rand.NewSource(time.Now().UnixNano())
+	random := rand.New(src)
+
+	randVal := random.Intn(pokemonDetails.BaseExperience)
 	if randVal > threshold {
 		fmt.Printf("%s escaped!\n", pokemonDetails.Name)
 		return nil
