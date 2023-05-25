@@ -55,7 +55,6 @@ func (c *Cache) deleteLoop(interval time.Duration) {
 func (c *Cache) delete(now time.Time, interval time.Duration) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
-	// t := time.Now().UTC().Add(-interval)
 	for k, v := range c.cache {
 		if v.createdAt.Before(now.Add(-interval)) {
 			delete(c.cache, k)
